@@ -30,6 +30,7 @@ class LittleLibrary(db.Model):
 # Forms
 class LibraryForm(FlaskForm):
     name = StringField('Library Name', validators=[DataRequired()])
+    address = StringField('Address', validators=[DataRequired()])  # Make sure this exists
     city = StringField('City', validators=[DataRequired()])
     state = StringField('State (2-letter code)', validators=[DataRequired()])
     zip_code = StringField('ZIP Code', validators=[DataRequired()])
@@ -66,6 +67,11 @@ def add_library():
         flash('Library added successfully!', 'success')
         return redirect(url_for('libraries'))
     return render_template('add_library.html', form=form)
+
+@app.route('/library/<int:id>')
+def library_detail(id):
+    library = LittleLibrary.query.get_or_404(id)
+    return render_template('library_detail.html', library=library)
 
 if __name__ == '__main__':
     with app.app_context():

@@ -6,52 +6,15 @@
 <div class="row">
     <div class="col-md-8">
         <h1>{{ library.name }}</h1>
-        <p class="lead">{{ library.address }}, {{ library.city }}, {{ library.state }} {{ library.zip_code }}</p>
-        
-        {% if library.latitude and library.longitude %}
-        <div id="map" style="height: 300px; width: 100%; margin-bottom: 20px;"></div>
-        {% endif %}
+        <p class="lead">
+            {{ library.address }}<br>
+            {{ library.city }}, {{ library.state }} {{ library.zip_code }}
+        </p>
         
         <h3>Description</h3>
         <p>{{ library.description or "No description provided." }}</p>
     </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Library Details</h5>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <strong>Added by:</strong> {{ library.added_by or "Anonymous" }}
-                    </li>
-                    <li class="list-group-item">
-                        <strong>Location:</strong> {{ library.city }}, {{ library.state }}
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
 </div>
 
-<a href="{{ url_for('libraries') }}" class="btn btn-secondary mt-3">Back to List</a>
-
-{% if library.latitude and library.longitude %}
-<script>
-    // Initialize and display the map
-    function initMap() {
-        const libraryLocation = { lat: {{ library.latitude }}, lng: {{ library.longitude }} };
-        const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 15,
-            center: libraryLocation,
-        });
-        new google.maps.Marker({
-            position: libraryLocation,
-            map: map,
-            title: "{{ library.name }}"
-        });
-    }
-</script>
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
-</script>
-{% endif %}
+<a href="{{ url_for('libraries') }}" class="btn btn-secondary">Back to List</a>
 {% endblock %}
