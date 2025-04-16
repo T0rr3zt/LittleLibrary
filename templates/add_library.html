@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Add Library{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Add a Little Library</h1>
+
+<form method="POST" action="{{ url_for('add_library') }}">
+    {{ form.hidden_tag() }}
+    
+    <div class="mb-3">
+        {{ form.name.label(class="form-label") }}
+        {{ form.name(class="form-control") }}
+        {% for error in form.name.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+    
+    <div class="mb-3">
+        {{ form.address.label(class="form-label") }}
+        {{ form.address(class="form-control") }}
+        {% for error in form.address.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+    
+    <div class="row mb-3">
+        <div class="col-md-4">
+            {{ form.city.label(class="form-label") }}
+            {{ form.city(class="form-control") }}
+            {% for error in form.city.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="col-md-2">
+            {{ form.state.label(class="form-label") }}
+            {{ form.state(class="form-control") }}
+            {% for error in form.state.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="col-md-3">
+            {{ form.zip_code.label(class="form-label") }}
+            {{ form.zip_code(class="form-control") }}
+            {% for error in form.zip_code.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="mb-3">
+        {{ form.description.label(class="form-label") }}
+        {{ form.description(class="form-control", rows=3) }}
+    </div>
+    
+    <div class="mb-3">
+        {{ form.submit(class="btn btn-primary") }}
+    </div>
+</form>
+{% endblock %}

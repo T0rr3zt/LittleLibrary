@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Library List{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Little Libraries</h1>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for library in libraries %}
+            <tr>
+                <td>{{ library.name }}</td>
+                <td>
+                    {{ library.address }}<br>
+                    {{ library.city }}, {{ library.state }} {{ library.zip_code }}
+                </td>
+                <td>{{ library.description|truncate(100) }}</td>
+                <td>
+                    <a href="{{ url_for('library_detail', id=library.id) }}" class="btn btn-sm btn-info">View</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" class="text-center">No libraries found. Be the first to add one!</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to Little Libraries Tracker</h1>
+    <p class="lead">A community-driven platform to track and share little free libraries across the US.</p>
+    <hr class="my-4">
+    <p>Help us map all the little libraries in your neighborhood!</p>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('add_library') }}" role="button">Add a Library</a>
+    <a class="btn btn-outline-primary btn-lg" href="{{ url_for('libraries') }}" role="button">Browse Libraries</a>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>About This Project</h2>
+        <p>Little free libraries are small, often handmade book exchanges where anyone can take a book or leave a book.</p>
+        <p>This platform allows book lovers to share the locations of these libraries so others can find them.</p>
+    </div>
+    <div class="col-md-6">
+        <h2>How It Works</h2>
+        <ol>
+            <li>Find a little library in your area</li>
+            <li>Add it to our database with its location</li>
+            <li>Help others discover these wonderful community resources</li>
+        </ol>
+    </div>
+</div>
+{% endblock %}
