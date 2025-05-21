@@ -27,4 +27,86 @@
         </ol>
     </div>
 </div>
+
+   <!-- ==========================  Map Container ====================================== -->
+
+
+<div class="container">
+    <h1 class="my-4">Little Libraries Map</h1>
+    
+    <!-- Map Container -->
+    <div id="map" class="mb-4"></div>
+    
+    <!-- Add Library Form (initially hidden) -->
+    <div id="addForm" style="display:none;">
+        <h3>Add New Library</h3>
+        <form id="libraryForm" method="POST" action="{{ url_for('add_library') }}">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.name.label }} {{ form.name(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                <label>Location</label>
+                <input type="text" id="address" class="form-control mb-2" readonly>
+                <input type="hidden" id="latitude" name="latitude">
+                <input type="hidden" id="longitude" name="longitude">
+            </div>
+            <div class="mb-3">
+                {{ form.description.label }} {{ form.description(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-primary">Save Library</button>
+            <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    // Initialize map
+    const map = L.map('map').setView([39.8283, -98.5795], 4); // Center on US
+    
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    
+    // Existing libraries (from database)
+    {% for library in libraries %}
+        {% if library.latitude and library.longitude %}
+        L.marker([{{ library.latitude }}, {{ library.longitude }}])
+            .addTo(map)
+            .bindPopup("<b>{{ library.name }}</b><br>{{ library.address }}");
+        {% endif %}
+    {% endfor %}
+    
+    // Click handler for adding new libraries
+    let marker;
+    map.on('click', function(e) {
+        // Remove previous marker if exists
+        if (marker) map.removeLayer(marker);
+        
+        // Add new marker
+        marker = L.marker(e.latlng).addTo(map)
+            .bindPopup("New Library Location").openPopup();
+        
+        // Reverse geocode to get address
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${e.latlng.lat}&lon=${e.latlng.lng}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('address').value = data.display_name || 'Location selected';
+                document.getElementById('latitude').value = e.latlng.lat;
+                document.getElementById('longitude').value = e.latlng.lng;
+                document.getElementById('addForm').style.display = 'block';
+            });
+    });
+    
+    // Cancel button handler
+    document.getElementById('cancelBtn').addEventListener('click', function() {
+        if (marker) map.removeLayer(marker);
+        document.getElementById('addForm').style.display = 'none';
+    });
+</script>
+
+
+
 {% endblock %}
