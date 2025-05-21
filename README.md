@@ -1,0 +1,1 @@
+This platform allows book lovers to share the locations of these libraries so others can find them.
