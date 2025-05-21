@@ -30,17 +30,6 @@ class LittleLibrary(db.Model):
     def __repr__(self):
         return f'<LittleLibrary {self.name}>'
 
-# Forms
-# class LibraryForm(FlaskForm):
-#     name = StringField('Library Name', validators=[DataRequired()])
-#     address = StringField('Address', validators=[DataRequired()])  # Make sure this exists
-#     city = StringField('City', validators=[DataRequired()])
-#     state = StringField('State (2-letter code)', validators=[DataRequired()])
-#     zip_code = StringField('ZIP Code', validators=[DataRequired()])
-#     description = TextAreaField('Description')
-#     submit = SubmitField('Add Library')
-
-
 
 class LibraryForm(FlaskForm):
     name = StringField('Library Name', validators=[DataRequired()])
@@ -48,14 +37,6 @@ class LibraryForm(FlaskForm):
     longitude = HiddenField('Longitude', validators=[DataRequired()])
     description = TextAreaField('Description')
     submit = SubmitField('Add Library')
-
-
-
-# Routes
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
-
 
 @app.route('/')
 def index():
@@ -67,27 +48,6 @@ def index():
 def libraries():
     libraries = LittleLibrary.query.all()
     return render_template('libraries.html', libraries=libraries)
-
-# @app.route('/add', methods=['GET', 'POST'])
-# def add_library():
-#     form = LibraryForm()
-#     if form.validate_on_submit():
-#         # Here you would add geocoding logic to get lat/long from address
-#         library = LittleLibrary(
-#             name=form.name.data,
-#             address=form.address.data,
-#             city=form.city.data,
-#             state=form.state.data,
-#             zip_code=form.zip_code.data,
-#             description=form.description.data,
-#             # For now, we'll leave lat/long as None
-#             # In a production app, you'd use geopy or similar to geocode
-#         )
-#         db.session.add(library)
-#         db.session.commit()
-#         flash('Library added successfully!', 'success')
-#         return redirect(url_for('libraries'))
-#     return render_template('add_library.html', form=form)
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_library():

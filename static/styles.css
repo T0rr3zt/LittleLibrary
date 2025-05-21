@@ -1,6 +1,23 @@
+
+/* Make the body a flex container and set min-height */
 body {
-  padding-top: 20px;
-  background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* This ensures the body takes at least the full viewport height */
+    margin: 0;
+}
+
+/* Let the main content grow to push footer down */
+main {
+    flex: 1;
+}
+
+/* Footer styles */
+footer {
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
 }
 
 .jumbotron {
@@ -15,4 +32,73 @@ footer {
 
 .table-responsive {
   margin-top: 20px;
+}
+
+
+/* Add these to make everything consistent */
+.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.border-primary {
+    border-color: var(--primary-color) !important;
+}
+
+:root {
+    --primary-color: #08519c;
+    --primary-dark: #063a6f;
+    --primary-light: #3a7cb9;
+    --secondary-color: #f8f9fa;
+    --text-on-primary: #ffffff;
+}
+
+
+
+/* Navbar styling */
+.navbar {
+    background-color: var(--primary-color) !important;
+}
+
+.navbar-brand, .nav-link {
+    color: var(--text-on-primary) !important;
+}
+
+.nav-link:hover {
+    color: var(--secondary-color) !important;
+    opacity: 0.8;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-dark);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-color);
+}
+
+/* Cards and containers */
+.card-header {
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+}
+
+/* Background and text */
+body {
+    background-color: #f5f5f5; /* Light gray background to contrast with blue */
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: var(--primary-dark);
 }
