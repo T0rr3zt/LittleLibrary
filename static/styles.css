@@ -12,6 +12,16 @@ main {
     flex: 1;
 }
 
+/* Option 1: Fixed height */
+#map {
+    height: 60vh;               /* 60% of viewport height */
+    min-height: 700px;         /* Minimum height */
+    width: 100%;
+    background-color: #e9ecef;  /* Temporary background to verify it's working */
+    border: 2px dashed #08519c; /* Temporary border to see the container */
+    margin-bottom: 1rem;       /* Replaces Bootstrap's mb-4 */
+}
+
 /* Footer styles */
 footer {
     background-color: #f8f9fa;
